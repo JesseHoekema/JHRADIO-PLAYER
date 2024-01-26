@@ -1,51 +1,179 @@
-<div class="center-container">
-    <h1>
-      <span style="color: #f80300">J</span><span style="color: #be4000">H</span><span style="color: #847e00">R</span><span style="color: #49bb00">A</span><span style="color: #0ff800">D</span><span style="color: #3ecf01">I</span><span style="color: #6da501">O</span><span style="color: #9b7c02"> </span><span style="color: #ca5202">P</span><span style="color: #f92903">L</span><span style="color: #bf5d02">A</span><span style="color: #849102">Y</span><span style="color: #4ac401">E</span><span style="color: #0ff800">R</span>
-    </h1>
-  </div>
-<div class="audio-player">
-    <audio controls>
-        <source src="https://stream-151.zeno.fm/soyodhfoxe2vv?zs=ot3iZ9YoR7ONAMF-2-s_NQ" type="audio/mpeg">
-    </audio>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Radio Player</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Roboto', sans-serif;
+        }
+        #progress-bar {
+            display: none;
+        }
+
+        #player-container {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 50px;
+        }
+
+        #record-container {
+            width: 300px;
+            height: 300px;
+
+        }
+
+        #controls-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        input[type="range"] {
+            width: 200px;
+            margin-top: 10px;
+            -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+            appearance: none;
+            background: #d3d3d3; /* Fallback color for non-webkit browsers */
+            height: 10px;
+            border-radius: 0px;
+
+
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: green;
+            border-radius: 0; /* Vierkant maken */
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            background: green;
+            border-radius: 0; /* Vierkant maken */
+            cursor: pointer;
+        }
+        #play-time {
+            padding-right: 5px;
+            padding-bottom: 5px;
+            margin-top: 10px;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .play-pause-button {
+            padding-top: 5px;
+            width: 50px;
+            height: 50px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .play-pause-button:hover {
+            background-color: #45a049;
+        }
+
+        #play-pause-icon {
+            font-size: 24px;
+            color: #000000;
+        }
+        .br {
+            width: 300px;
+            border: 1px solid black;
+            color: red;
+        }
+        .timevol {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+<div id="player-container">
+    <h1>JHRADIO</h1>
+    <img src="disc.gif" width="300px" style="border-radius: 400px;">
+    <div id="controls-container">
+        <div class="timevol">
+            <div id="play-time">0:00</div>
+            <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
+        </div>
+        <input type="range" id="progress-bar" min="0" max="100" step="0.1" value="0">
+        <button class="play-pause-button" id="play-button" onclick="togglePlayPause()">
+            <span id="play-pause-icon">&#9658;</span>
+        </button>
+        <button class="play-pause-button" id="pause-button" style="display:none" onclick="togglePlayPause()">
+            <span id="play-pause-icon">&#10074;&#10074;</span>
+        </button>
+    </div>
+    <audio id="audio-player" src="http://stream.zeno.fm/soyodhfoxe2vv"></audio>
 </div>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-  background-image: url('https://images.pexels.com/photos/1021876/pexels-photo-1021876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
-h1 {
-    align-items: center;
-    font-size: 80px;
-}
-.audio-player {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: green;
-  padding: 10px;
-  text-align: center;
-}
-audio {
-  width: 100%;
-  outline: none; /* Verwijder standaard focusstijl */
-  border-radius: 0px;
-}
+<script>
+    const audioPlayer = document.getElementById('audio-player');
+    const playButton = document.getElementById('play-button');
+    const pauseButton = document.getElementById('pause-button');
+    const volumeControl = document.getElementById('volume-control');
+    const progressBar = document.getElementById('progress-bar');
+    const playTime = document.getElementById('play-time');
+    
+    function togglePlayPause() {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+            playButton.style.display = 'none';
+            pauseButton.style.display = 'block';
+        } else {
+            audioPlayer.pause();
+            playButton.style.display = 'block';
+            pauseButton.style.display = 'none';
+        }
+    }
 
-/* Stijl voor audio-bedieningselementen */
-audio::-webkit-media-controls-panel {
-  border-radius: 0;
-  background-color: green; /* Pas achtergrondkleur van bedieningselementen aan */
-}
-.center-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Optioneel: dit zorgt ervoor dat de container de volledige hoogte van het scherm inneemt */
-}
+    volumeControl.addEventListener('input', () => {
+        audioPlayer.volume = volumeControl.value;
+    });
 
-</style>
+    audioPlayer.addEventListener('timeupdate', () => {
+        const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progressBar.value = percentage;
+
+        const minutes = Math.floor(audioPlayer.currentTime / 60);
+        const seconds = Math.floor(audioPlayer.currentTime % 60);
+        playTime.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    });
+
+    progressBar.addEventListener('input', () => {
+        const seekTime = (progressBar.value / 100) * audioPlayer.duration;
+        audioPlayer.currentTime = seekTime;
+    });
+</script>
+
+</body>
+</html>
