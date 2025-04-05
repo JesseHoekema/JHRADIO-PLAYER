@@ -1,91 +1,119 @@
+# HTML5 Icecast/Shoutcast/Zeno Radio Full Page Radio Player with PWA Support
 
-# HTML5 Icecast/Shoutcast/Zeno Full Page Radio Player
+* Current song
+* Historic of played songs ( added option to show or hide history song )
+* Cover art of the current song ([Deezer API](https://developers.deezer.com/login?redirect=/api))
+* Lyrics of the current song ([Vagalume API](https://api.vagalume.com.br/docs/))
+* Responsive design
+* Now available as a Progressive Web App (PWA) for enhanced user experience!
+* Now available Azuracast support
+
+## Demo Screenshots
+
+![Demo Screenshot](https://i.imgur.com/QcbLFzn.jpg)
+
+
 
 # Documentation.
 
-Open The [Script.js](https://github.com/joeyboli/html5-shoutcast-icecast-zeno-player/blob/main/js/script.js) file and edit the lines Below.
+Open The [Script.js](https://github.com/jailsonsb2/RadioPlayer-ZenoRadio/blob/main/js/script.js) file and edit the lines Below.
 
 ```javascript
 // RADIO NAME
-const RADIO_NAME = 'Game! Radio 1';
+const RADIO_NAME = 'Your Radio Name';
 
-// SELECT ARTWORK PROVIDER, ITUNES, DEEZER & SPOTIFY. eg : spotify 
-var API_SERVICE = 'DEEZER';
+// Change Stream URL Zeno Radio Here.
+const URL_STREAMING = 'https://stream.zeno.fm/yn65fsaurfhvv';
 
-// Change Stream URL Here, Supports, ICECAST, ZENO, SHOUTCAST, RADIOJAR and any other stream service.
-const URL_STREAMING = 'https://stream-51.zeno.fm/cfhkm5fs1uhvv?zs=HOu6hxV1SG-7iGi9WGVTqQ';
+// You can find the mount point in the Broadcast Settings.
+// To generate the Zeno Radio API link from the mount point,
+// exclude the '/source' part and append the remaining mount point to the base URL of the API.
+// For example, if the mount point is 'yn65fsaurfhvv/source',
+// the API link will be 'https://api.zeno.fm/mounts/metadata/subscribe/yn65fsaurfhvv'.
 
-//API URL GET API On Joeycast Website
-const API_URL = 'https://api-v2.streamafrica.net/icyv2?url=' + URL_STREAMING;
+const API_URL = 'https://api.zeno.fm/mounts/metadata/subscribe/yn65fsaurfhvv'
+
+// Variable to control history display: true = display / false = hides
+let showHistory = true; 
 
  ```
-
-## RadioAPI Docs
-
-[Buy](https://docs.radioapi.me)
-
-## Free Hosting
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjoeyboli%2FRadioPlayer)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/joeyboli/RadioPlayer/)
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/_QMSCK)
-
 
  ## Change Logo.
 
  Open The img folder and add your logo named "cover.png"
 
+ ## Zeno Radio API Now Playing.
 
- 
-## Demo Screenshots
+To generate the Zeno Radio API link from the mount point,
+exclude the '/source' part and append the remaining mount point to the base URL of the API.
+You can find the mount point in the Broadcast Settings.
+For example, if the mount point is 'yn65fsaurfhvv/source',
+the API link will be 'https://api.zeno.fm/mounts/metadata/subscribe/yn65fsaurfhvv'.
 
-![Demo Screenshot](https://i.ibb.co/xfXG7fb/Screenshot-2023-06-18-21-40-11.png)
+![Demo Screenshot](https://i.imgur.com/8F61uyD.jpg)
 
+
+ ## Installation
+Just put the files in your server or use Free Hosting
+
+
+
+## Free Hosting
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/jailsonsb2/RadioPlayer-ZenoRadio)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/jailsonsb2/RadioPlayer-ZenoRadio)
+
+### Progressive Web App (PWA) Support
+
+Now you can install the Radio Player as a Progressive Web App (PWA) to your device for an enhanced experience! Simply visit the website on a supported browser and follow the prompts to install it.
+
+### Configuring Radio Name and Colors
+
+To configure the name of your radio and the colors used in the Progressive Web App (PWA), you need to edit the `manifest.json` file:
+
+1. Open the `manifest.json` file in your project.
+2. Locate the `"name"` field and replace `'Your Radio Name'` with the name of your radio.
+3. If desired, you can also customize the `"background_color"` and `"theme_color"` fields to match your radio's branding colors.
+
+Here's an example:
+
+```json
+{
+  "name": "Your Radio Name",
+  "short_name": "Radio Player",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",  // Customize this color to match your branding
+  "theme_color": "#ffffff",       // Customize this color to match your branding
+  "icons": [
+    {
+      "src": "img/cover.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
+
+```
 
 ## Supported Hosting Types
-* Icecast / Shoutcast
 * Zeno Radio
-* RadioJar
 * Azuracast
-* Centova Cast
-* Everest Cast
-* MediaCP
-* Sonic Panel
-* 
+
 ## Supported API/Data Sources
-* Apple Music / Itunes
 * Deezer
-* Spotify
-* Azuracast Now Playing API (Pro)
-* MediCP Now Playing API (Pro)
-* CentovaCast Now Playing API (Pro)
+* Azuracast
 
-
-# JCPlayer Pro
-#### ScreenShot
-[![](https://icdn2.streamafrica.net/boxradiostacks/6575160608505.jpg)](https://icdn2.streamafrica.net/boxradiostacks/6575160608505.jpg)
-
-## Features
-- Supports Itunes, Spotify, Azuracast, MediaCP, Deezer.
-- Admin Panel For Multi Station.
-- Supports MP3, AAC.
-- Single Or Multi Radio Stations.
-- StreamAfrica Premium API.
-
-#### Price
-100$ Per Year.
-
-#### Demo.
-- [JC Player Pro Demo](https://player.boxradio.net/ "JC Player Pro Demo")
-
-#### Purchase URL.
-[Buy JCPlayer Pro](https://spp.joeycast.com/store/jcplayer/jcplayer-pro/4)
-
+## Keyboard Controls 
+* `M` - mute/unmute
+* `P` and `space` - play/pause
+* `arrow up` and `arrow down` - increase/decrease volume
+* `0 to 9` - volume percent
 
 
 ## Feedback
 
-If you have any feedback, please reach out to me at bankuboy@pm.me
+If you have any feedback, please reach out to me at contact@jailson.es
 
 
 ## License
@@ -94,6 +122,6 @@ If you have any feedback, please reach out to me at bankuboy@pm.me
 
 ## Credits
 * [gsavio/player-shoutcast-html5](https://github.com/gsavio/player-shoutcast-html5)
-* [streamafrica Free API](https://api.streamafrica.net/)
+* [joeyboli/RadioPlayer](https://github.com/joeyboli/RadioPlayer)
 
 
